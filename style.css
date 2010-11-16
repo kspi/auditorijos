@@ -5,6 +5,13 @@
     text-align: center;
 }
 
+.half {
+    font-weight: bold;
+    background-color: #eeddaa;
+    color: #666600;
+    text-align: center;
+}
+
 .free {
     font-weight: bold;
     background-color: #aaffaa;
@@ -22,7 +29,6 @@ table {
 }
 
 td {
-    font-size: small;
     border: thin solid #555;
     padding: 0px;
     padding-left: 5px;
