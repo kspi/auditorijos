@@ -4,13 +4,21 @@ function selectDay() {
     $('div#' + value).show();    
 }
 
-function selectAud() {
-    var checkboxes = $('input');
-    for (var i in checkboxes) {
-        if (checkboxes[i].checked) {
-            $('.' + checkboxes[i].id).show();
-        } else {
-            $('.' + checkboxes[i].id).hide();
+function updateCheck(box) {
+    if (box.checked) {
+        $('.' + box.id).show();
+    } else {
+        $('.' + box.id).hide();
+    }
+}
+
+function selectAud(box) {
+    if (box) {
+        updateCheck(box);
+    } else {
+        var checkboxes = $('input');
+        for (var i in checkboxes) {
+            updateCheck(checkboxes[i]);
         }
     }
 }

@@ -85,7 +85,7 @@ print '''</select></label>
 <ul>'''
 checked = ' checked'
 for aud_type in aud_types:
-    print '<li><label><input id="%s" type="checkbox" %s>%s</label>' \
+    print '<li><label><input onchange="selectAud(this)" id="%s" type="checkbox" %s>%s</label>' \
         % (aud_type, checked, aud_type)
     checked = ''
 print '''</ul></form></div>
@@ -95,7 +95,7 @@ for day_name in day_names:
     print '<div class="diena" id="%s"><h2>%s</h2>' \
         % (day_name, titlecase(day_name))
     print '<table>'
-    print '<tr class="darken"><td>Auditorijos ↓ / valandos →</td>',
+    print '<tr class="darken"><td>Valandos →<br>Auditorijos ↓</td>',
     for hour in all_hours:
         print '<td>%02d</td>' % hour,
     print '</tr>'
@@ -107,4 +107,4 @@ for day_name in day_names:
                 output_aud(aud_name)
     print '</table></div>'
 
-print """</div></body></html>"""
+print '''</div></body></html>'''
