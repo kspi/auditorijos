@@ -1,3 +1,8 @@
+body {
+    font-family: sans-serif;
+    margin: 1cm;
+}
+
 .taken {
     font-weight: bold;
     background-color: #ffaaaa;
@@ -20,26 +25,44 @@
 }
 
 .darken {
-    background-color: #aaa;
+    background-color: #999;
 }
 
 table {
+    font-size: small;
+    border: thin solid #999;
     border-spacing: 0;
     border-collapse: collapse;
 }
 
 td {
-    border: thin solid #555;
     padding: 0px;
     padding-left: 5px;
     padding-right: 5px;
     margins: 0px;
 }
 
-div {
+div.float {
     float: left;
+    margin: 0.5cm;
 }
 
 tr:hover {
-    border: thin solid blue;
+    border: thin solid #333;
+}
+
+.odd.taken {
+    background-color: #ff7777;
+}
+
+.odd.half {
+    background-color: #eedd77;
+}
+
+.odd.free {
+    background-color: #77ff77;
+}
+
+ul {
+    list-style-type: none;
 }

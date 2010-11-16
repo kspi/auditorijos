@@ -15,14 +15,18 @@ def _get_times(row):
             from_minutes,
             to_hours,
             to_minutes)
-    
-_weekre = re.compile('\( ([12]) \)')
+
+TAKEN_ODD = 1
+TAKEN_EVEN = 2
+TAKEN_ALWAYS = 3
+
+_weekre = re.compile(r'\( ([12]) \)')
 def _get_week(row):
     text = ''.join(map(unicode, row.contents[1].contents))
     try:
         return int(re.findall(_weekre, text)[0])
     except IndexError:
-        return True
+        return TAKEN_ALWAYS
 
 class Lecture:
     def __init__(self, row):
@@ -48,18 +52,18 @@ class Day:
 
     def take_hours(self, lecture):
         for hour in lecture.taken_hours():
-            if (lecture.week == True) or (not self.taken.has_key(hour)):
+            if (lecture.week == TAKEN_ALWAYS) or (not self.taken.has_key(hour)):
                 self.taken[hour] = lecture.week
-            elif lecture.week == 1:
-                if self.taken[hour] == 2:
-                    self.taken[hour] = True
+            elif lecture.week == TAKEN_ODD:
+                if self.taken[hour] == TAKEN_EVEN:
+                    self.taken[hour] = TAKEN_ALWAYS
                 elif not self.taken[hour]:
-                    self.taken[hour] = 1
-            elif lecture.week == 2:
-                if self.taken[hour] == 1:
-                    self.taken[hour] = True
+                    self.taken[hour] = TAKEN_ODD
+            elif lecture.week == TAKEN_EVEN:
+                if self.taken[hour] == TAKEN_ODD:
+                    self.taken[hour] = TAKEN_ALWAYS
                 elif not self.taken[hour]:
-                    self.taken[hour] = 2
+                    self.taken[hour] = TAKEN_EVEN
 
     def pr(self):
         print self.taken
@@ -133,12 +137,8 @@ class Timetable:
     def __init__(self):
         self.aud_names = get_aud_names()
         self.auds = {}
-        day_names_set = False
         for aud_name in self.aud_names:
             self.auds[aud_name] = get_week_from_name(aud_name)
-            if not day_names_set:
-                self.day_names = self.auds[aud_name].days.keys()
-                day_names_set = True
 
     def pr(self):
         print
