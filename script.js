@@ -1,5 +1,5 @@
 function selectDay() {
-    var value = settings.day.options[settings.day.selectedIndex].value;
+    var value = $('select').val();
     $('div.diena').hide();
     $('div#' + value).show();    
 }
@@ -16,8 +16,7 @@ function selectAud() {
 }
 
 window.onload = function() {
-    settings.day.selectedIndex = (new Date()).getDay() - 1;
-    selectDay();
-    
+    $('select').get(0).selectedIndex = (new Date()).getDay() - 1;
+    selectDay();    
     selectAud();
 };

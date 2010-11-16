@@ -39,16 +39,12 @@ td {
     padding: 0px;
     padding-left: 5px;
     padding-right: 5px;
-    margins: 0px;
+    margin: 0px;
 }
 
 div.float {
     float: left;
     margin: 0.5cm;
-}
-
-tr:hover {
-    border: thin solid #333;
 }
 
 .odd.taken {

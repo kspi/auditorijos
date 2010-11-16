@@ -85,7 +85,7 @@ print '''</select></label>
 <ul>'''
 checked = ' checked'
 for aud_type in aud_types:
-    print '<li><label><input onchange="selectAud()" id="%s" type="checkbox" %s>%s</label>' \
+    print '<li><label><input id="%s" type="checkbox" %s>%s</label>' \
         % (aud_type, checked, aud_type)
     checked = ''
 print '''</ul></form></div>
