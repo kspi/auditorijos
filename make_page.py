@@ -35,7 +35,7 @@ def get_aud_type(name):
     else:
         return 'kitos'
 
-with file('index.html', 'w') as f:
+with file('output/index.html', 'w') as f:
     def output_aud(name):
         f.write('<tr class="%s"><td><a href="http://kedras.mif.vu.lt/tvark/?type=auditor&anr=%s">%s</a></td>' 
                 % (get_aud_type(aud_name),
