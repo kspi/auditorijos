@@ -35,26 +35,27 @@ def get_aud_type(name):
     else:
         return 'kitos'
 
-def output_aud(name):
-    print '<tr class="%s"><td><a href="http://kedras.mif.vu.lt/tvark/?type=auditor&anr=%s">%s</a></td>' \
-        % (get_aud_type(aud_name),
-           urllib2.quote(aud_name),
-           aud_name),
-    for hour in all_hours:
-        status = timetable.get_status(aud_name, day_name, hour)
-        print '<td class="',
-        if (hour / 2) % 2:
-            print 'odd',
-        if status == common.TAKEN_ALWAYS:
-            print 'taken">U',
-        elif status:
-            print 'half">%d' % status,
-        else:
-            print 'free">L',
-        print '</td>',
-    print '</tr>'
-    
-print '''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+with file('index.html', 'w') as f:
+    def output_aud(name):
+        f.write('<tr class="%s"><td><a href="http://kedras.mif.vu.lt/tvark/?type=auditor&anr=%s">%s</a></td>' 
+                % (get_aud_type(aud_name),
+                   urllib2.quote(aud_name),
+                   aud_name))
+        for hour in all_hours:
+            status = timetable.get_status(aud_name, day_name, hour)
+            f.write('<td class="')
+            if (hour / 2) % 2:
+                f.write('odd ')
+            if status == common.TAKEN_ALWAYS:
+                f.write('taken">U')
+            elif status:
+                f.write('half">%d' % status)
+            else:
+                f.write('free">L')
+            f.write('</td>')
+        f.write('</tr>')
+
+    f.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -77,34 +78,36 @@ print '''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR
 <form name="settings">
 <h2>Nustatymai</h2>
 <p><label>Rodyti dieną:
-<select name="day" onchange="selectDay()">'''
-for day_name in day_names:
-    print '<option>%s</option>' % day_name
-print '''</select></label>
+<select name="day" onchange="selectDay()">''')
+    for day_name in day_names:
+        f.write('<option>%s</option>' % day_name)
+    f.write('''</select></label>
 <p>Rodyti auditorijas iš:
-<ul>'''
-checked = ' checked'
-for aud_type in aud_types:
-    print '<li><label><input onchange="selectAud(this)" id="%s" type="checkbox" %s>%s</label>' \
-        % (aud_type, checked, aud_type)
-    checked = ''
-print '''</ul></form></div>
-<div class="float">
-'''
-for day_name in day_names:
-    print '<div class="diena" id="%s"><h2>%s</h2>' \
-        % (day_name, titlecase(day_name))
-    print '<table>'
-    print '<tr class="darken"><td>Valandos →<br>Auditorijos ↓</td>',
-    for hour in all_hours:
-        print '<td>%02d</td>' % hour,
-    print '</tr>'
-    for aud_type in aud_types:
-        print '<tr class="%s"><td class="darken" colspan="%d">%s</td></tr>'\
-            % (aud_type, len(all_hours) + 1, aud_type)
-        for aud_name in timetable.aud_names:
-            if get_aud_type(aud_name) == aud_type:
-                output_aud(aud_name)
-    print '</table></div>'
+<ul>''')
 
-print '''</div></body></html>'''
+    checked = ' checked'
+    for aud_type in aud_types:
+        f.write('<li><label><input onchange="selectAud(this)" id="%s" type="checkbox" %s>%s</label>'
+            % (aud_type, checked, aud_type))
+        checked = ''
+    
+    f.write('''</ul></form></div>
+<div class="float">''')
+
+    for day_name in day_names:
+        f.write('<div class="diena" id="%s"><h2>%s</h2>'
+                % (day_name, titlecase(day_name)))
+        f.write('<table>')
+        f.write('<tr class="darken"><td>Valandos →<br>Auditorijos ↓</td>')
+        for hour in all_hours:
+            f.write('<td>%02d</td>' % hour)
+        f.write('</tr>')
+        for aud_type in aud_types:
+            f.write('<tr class="%s"><td class="darken" colspan="%d">%s</td></tr>'
+                    % (aud_type, len(all_hours) + 1, aud_type))
+            for aud_name in timetable.aud_names:
+                if get_aud_type(aud_name) == aud_type:
+                    output_aud(aud_name)
+        f.write('</table></div>')
+
+    f.write('''</div></body></html>''')
