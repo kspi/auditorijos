@@ -24,7 +24,10 @@ function selectAud(box) {
 }
 
 window.onload = function() {
-    $('select').get(0).selectedIndex = (new Date()).getDay() - 1;
+    var weekday = (new Date()).getDay() - 1;
+    if (weekday > 4)
+        weekday = 0;
+    $('select').get(0).selectedIndex = weekday;
     selectDay();    
     selectAud();
 };

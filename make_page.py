@@ -1,6 +1,5 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8-unix -*-
-# Ši programa sugeneruoja puslapį į stdout.
 
 import urllib2
 import re
@@ -23,6 +22,9 @@ timetable = common.load_timetable()
 def titlecase(s):
     return s.decode('utf-8').title().encode('utf-8')
 
+def idify(x):
+    return 'x%x' % hash(x)
+
 naugardukas_re = re.compile(r'^\d\d\d( \(MMT.*)?$')
 baltupiai_re = re.compile(r'\(balt\.\)')
 itc_re = re.compile(r'^(\d{1,2}|\d{1,2}, \d{1,2})( \(MMT.*)?$')
@@ -38,8 +40,8 @@ def get_aud_type(name):
 
 with file('output/index.html', 'w') as f:
     def output_aud(name):
-        f.write('<tr class="%s"><td><a href="http://kedras.mif.vu.lt/tvark/?type=auditor&anr=%s">%s</a></td>' 
-                % (get_aud_type(aud_name),
+        f.write('<tr class="%s"><td><a href="http://kedras.mif.vu.lt/tvark/?type=auditor&amp;anr=%s">%s</a></td>' 
+                % (idify(get_aud_type(aud_name)),
                    urllib2.quote(aud_name),
                    aud_name))
         for hour in all_hours:
@@ -76,12 +78,12 @@ with file('output/index.html', 'w') as f:
         &ndash; užimta tik nelyginėmis arba lyginėmis savaitėmis,
 <li><span class="free">L</span> &ndash; laisva.
 </ul>
-<form name="settings">
 <h2>Nustatymai</h2>
 <p><label>Rodyti dieną:
-<select name="day" onchange="selectDay()">''')
+<select onchange="selectDay()">''')
     for day_name in day_names:
-        f.write('<option>%s</option>' % day_name)
+        f.write('<option value="%s">%s</option>'
+                % (idify(day_name), day_name))
     f.write('''</select></label>
 <p>Rodyti auditorijas iš:
 <ul>''')
@@ -89,15 +91,15 @@ with file('output/index.html', 'w') as f:
     checked = ' checked'
     for aud_type in aud_types:
         f.write('<li><label><input onchange="selectAud(this)" id="%s" type="checkbox" %s>%s</label>'
-            % (aud_type, checked, aud_type))
+            % (idify(aud_type), checked, aud_type))
         checked = ''
     
-    f.write('''</ul></form></div>
+    f.write('''</ul></div>
 <div class="float">''')
 
     for day_name in day_names:
         f.write('<div class="diena" id="%s"><h2>%s</h2>'
-                % (day_name, titlecase(day_name)))
+                % (idify(day_name), titlecase(day_name)))
         f.write('<table>')
         f.write('<tr class="theader"><td>Valandos →<br>Auditorijos ↓</td>')
         for hour in all_hours:
@@ -105,7 +107,9 @@ with file('output/index.html', 'w') as f:
         f.write('</tr>')
         for aud_type in aud_types:
             f.write('<tr class="%s"><td class="audtype" colspan="%d">%s</td></tr>'
-                    % (aud_type, len(all_hours) + 1, aud_type))
+                    % (idify(aud_type),
+                       len(all_hours) + 1,
+                       aud_type))
             for aud_name in timetable.aud_names:
                 if get_aud_type(aud_name) == aud_type:
                     output_aud(aud_name)
