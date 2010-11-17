@@ -7,4 +7,10 @@ kurioje yra visos jam reikalingos bylos.
 
 „dump_data.py“ programai reikia BeautifulSoup modulio iš
 http://www.crummy.com/software/BeautifulSoup/ . Python programos
-testuotos su Python 2.7.
+testuotos su Python 2.7. Jei naudojate Ubuntu ar Debian, tai turėtų
+užtėkti su apt-get užinstaliuoti paketą „python-beautifulsoup“ ir
+paleisti programas auksčiau aprašyta tvarka:
+
+    sudo apt-get install python-beautifulsoup
+    python dump_data.py
+    python make_page.py
