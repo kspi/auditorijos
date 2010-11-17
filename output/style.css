@@ -24,10 +24,6 @@ body {
     text-align: center;
 }
 
-.darken {
-    background-color: #999;
-}
-
 table {
     font-size: small;
     border: thin solid #999;
@@ -66,4 +62,17 @@ ul {
 #footer {
     margin-top: 1cm;
     font-size: small;
+}
+
+.audtype {
+    background-color: #999;
+}
+
+.theader {
+    background-color: #999;
+    font-weight: bold;
+}
+
+.theader td {
+    padding: 6px;
 }

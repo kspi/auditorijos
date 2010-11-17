@@ -99,12 +99,12 @@ with file('output/index.html', 'w') as f:
         f.write('<div class="diena" id="%s"><h2>%s</h2>'
                 % (day_name, titlecase(day_name)))
         f.write('<table>')
-        f.write('<tr class="darken"><td>Valandos →<br>Auditorijos ↓</td>')
+        f.write('<tr class="theader"><td>Valandos →<br>Auditorijos ↓</td>')
         for hour in all_hours:
             f.write('<td>%02d</td>' % hour)
         f.write('</tr>')
         for aud_type in aud_types:
-            f.write('<tr class="%s"><td class="darken" colspan="%d">%s</td></tr>'
+            f.write('<tr class="%s"><td class="audtype" colspan="%d">%s</td></tr>'
                     % (aud_type, len(all_hours) + 1, aud_type))
             for aud_name in timetable.aud_names:
                 if get_aud_type(aud_name) == aud_type:
