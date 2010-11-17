@@ -62,3 +62,8 @@ div.float {
 ul {
     list-style-type: none;
 }
+
+#footer {
+    margin-top: 1cm;
+    font-size: small;
+}

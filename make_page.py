@@ -5,6 +5,7 @@
 import urllib2
 import re
 import common
+import time
 
 all_hours = range(8, 22)
 day_names = ['pirmadienis',
@@ -110,4 +111,7 @@ with file('output/index.html', 'w') as f:
                     output_aud(aud_name)
         f.write('</table></div>')
 
+    f.write('''<p id="footer">Atnaujinta: %s</p>'''
+            % time.strftime('%F', time.localtime(time.time())))
+        
     f.write('''</div></body></html>''')
