@@ -1,0 +1,78 @@
+body {
+    font-family: sans-serif;
+    margin: 1cm;
+}
+
+.taken {
+    font-weight: bold;
+    background-color: #ffaaaa;
+    color: red;
+    text-align: center;
+}
+
+.half {
+    font-weight: bold;
+    background-color: #eeddaa;
+    color: #666600;
+    text-align: center;
+}
+
+.free {
+    font-weight: bold;
+    background-color: #aaffaa;
+    color: green;
+    text-align: center;
+}
+
+table {
+    font-size: small;
+    border: thin solid #999;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0px;
+}
+
+div.float {
+    float: left;
+    margin: 0.5cm;
+}
+
+.odd.taken {
+    background-color: #ff7777;
+}
+
+.odd.half {
+    background-color: #eedd77;
+}
+
+.odd.free {
+    background-color: #77ff77;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#footer {
+    margin-top: 1cm;
+    font-size: small;
+}
+
+.audtype {
+    background-color: #999;
+}
+
+.theader {
+    background-color: #999;
+    font-weight: bold;
+}
+
+.theader td {
+    padding: 6px;
+}
